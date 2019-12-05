@@ -31,7 +31,6 @@ import io.cdap.pipeline.sql.api.template.interfaces.SQLNode;
 import io.cdap.pipeline.sql.api.template.tables.AbstractTableInfo;
 import org.apache.calcite.jdbc.CalciteSchema;
 import org.apache.calcite.jdbc.Driver;
-import org.apache.calcite.plan.RelOptTable;
 import org.apache.calcite.rel.RelNode;
 import org.apache.calcite.rel.rel2sql.RelToSqlConverter;
 import org.apache.calcite.rel.type.RelDataTypeField;
@@ -52,7 +51,6 @@ import org.apache.calcite.tools.Frameworks;
 import org.apache.calcite.tools.RelBuilder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -72,7 +70,7 @@ public abstract class AbstractSQLExecutor extends AbstractCustomAction {
   private static final String SINKS_NAME = "sinks";
   private static final String CREATE_TABLE_FEATURE_FLAG = "createTable";
 
-  private SQLConfig config;
+  protected SQLConfig config;
   private Dag dag;
   private Set<String> sourceStages;
   private Set<String> sinkStages;
@@ -134,6 +132,7 @@ public abstract class AbstractSQLExecutor extends AbstractCustomAction {
     // Set the config
     Gson gson = new GsonBuilder().create();
 
+    // TODO: CDAP-16155 Enable this permanently upon the release of Apache Calcite 1.22.0
     // Flag to enable or disable creation of tables when they don't exist
     createTableFeatureFlag = false;
     // Set whether we want to create tables if they do not exist
@@ -413,18 +412,5 @@ public abstract class AbstractSQLExecutor extends AbstractCustomAction {
       query.append(sqlQueryNode.toSqlString(getDialect()));
       queries.add(query.toSqlString().getSql());
     }
-  }
-
-  /**
-   * Creates a {@link RelNode} representing a table scan.
-   *
-   * @param builder The {@link RelBuilder} to use
-   * @param tableName Name of the table (can optionally be qualified)
-   * @return A relational node representing a table scan
-   */
-  private RelNode createScan(RelBuilder builder, String... tableName) {
-    List<String> name = Arrays.asList(tableName);
-    RelOptTable table = builder.getRelOptSchema().getTableForMember(Collections.unmodifiableList(name));
-    return builder.getScanFactory().createScan(builder.getCluster(), table);
   }
 }

@@ -38,9 +38,6 @@ import java.util.Map;
  */
 public class BigQueryExecutor extends AbstractSQLExecutor {
   private static final Logger LOG = LoggerFactory.getLogger(BigQueryExecutor.class);
-
-  private static final String SERVICE_ACCOUNT_PATH_NAME = "serviceAccountPath";
-
   private String serviceAccountPath;
 
   public BigQueryExecutor(SQLConfig config, Map<String, SQLNode> pluginMap) {
@@ -51,8 +48,8 @@ public class BigQueryExecutor extends AbstractSQLExecutor {
   public void initialize() {
     super.initialize();
 
-    // Get service account path from runtime arguments
-    serviceAccountPath = getContext().getRuntimeArguments().get(SERVICE_ACCOUNT_PATH_NAME);
+    // Get service account path from config
+    serviceAccountPath = config.getServiceAccountPath();
     if (serviceAccountPath == null) {
       throw new IllegalArgumentException("A service account path must be provided.");
     }
