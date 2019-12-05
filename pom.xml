@@ -22,7 +22,7 @@
   <packaging>pom</packaging>
   <name>CDAP SQL Pipelines Prototype</name>
   <description>A CDAP application for building SQL ELT pipelines</description>
-  <url>https://github.com/data-integrations/sql-pipelines</url>
+  <url>https://github.com/cdapio/sql-pipelines</url>
 
   <modules>
     <module>sql-api</module>
@@ -49,9 +49,9 @@
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/data-integrations/sql-pipelines.git</connection>
-    <developerConnection>scm:git:git@github.com:data-integrations/sql-pipelines.git</developerConnection>
-    <url>https://github.com/data-integrations/sql-pipelines.git</url>
+    <connection>scm:git:https://github.com/cdapio/sql-pipelines.git</connection>
+    <developerConnection>scm:git:git@github.com:cdapio/sql-pipelines.git</developerConnection>
+    <url>https://github.com/cdapio/sql-pipelines.git</url>
     <tag>HEAD</tag>
   </scm>
 

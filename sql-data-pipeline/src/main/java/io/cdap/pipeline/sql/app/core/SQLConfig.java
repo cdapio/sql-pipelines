@@ -30,18 +30,25 @@ import javax.annotation.Nullable;
  */
 public class SQLConfig extends ETLConfig {
   private final String schedule;
+  private final String serviceAccountPath;
 
   /**
    * For compilation purposes.
    */
-  public SQLConfig(String schedule) {
+  public SQLConfig(String schedule, String serviceAccountPath) {
     super(new HashSet<>(), new HashSet<>(), null, null, null,
           false, false, 0, new HashMap<>());
     this.schedule = schedule;
+    this.serviceAccountPath = serviceAccountPath;
   }
 
   @Nullable
   public String getSchedule() {
     return schedule;
+  }
+
+  @Nullable
+  public String getServiceAccountPath() {
+    return serviceAccountPath;
   }
 }
